@@ -10,11 +10,17 @@
 
 <script>
 import AppBar from './components/AppBar.vue';
+import { useTodoStore } from '@/stores/TodoStores';
 
 export default {
   name: 'App',
   components: {
     AppBar,
+  },
+  mounted() {
+    const todoStore = useTodoStore();
+
+    todoStore.getTask();
   },
 };
 </script>

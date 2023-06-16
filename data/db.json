@@ -1,0 +1,30 @@
+{
+  "todos": [
+    {
+      "task": "Complete Project Proposal",
+      "description": "Review and finalize the project proposal document",
+      "isFinished": false,
+      "id": 1,
+      "isFav": true
+    },
+    {
+      "task": "Prepare Presentation Slides",
+      "description": "Create slides for the upcoming client presentation",
+      "isFinished": true,
+      "id": 2
+    },
+    {
+      "task": "Research New Technologies",
+      "description": "Explore and gather information on emerging technologies",
+      "isFinished": true,
+      "id": 3,
+      "isFav": false
+    },
+    {
+      "task": "Update Website Content",
+      "description": "Revise and update the website content for improved SEO",
+      "isFinished": true,
+      "id": 4
+    }
+  ]
+}

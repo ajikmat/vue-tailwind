@@ -71,65 +71,35 @@
       </a>
     </div>
 
-    <div v-if="todoStore.totalTask >= 1">
-      <div v-if="activeTab === 'uncompleted'">
-        <div
-          v-for="todo in todoStore.uncompletedTask"
-          :key="todo.id"
-          class="cursor-pointer card-compact shadow-lg bg-base-200 rounded-lg hover:bg-base-300">
-          <router-link :to="{ name: 'pinia-details', params: { id: todo.id } }">
-            <div class="card-body m-4 hover:text-lg transition-all">
-              <div class="flex justify-between">
-                <div>{{ todo.task }}</div>
-                <div
-                  class="checkbox checkbox-primary"
-                  :checked="todo.isFinished" />
-              </div>
-            </div>
-          </router-link>
-        </div>
-      </div>
-
-      <div v-if="activeTab === 'completed'">
-        <div
-          v-for="todo in todoStore.completedTask"
-          :key="todo.id"
-          class="cursor-pointer card-compact shadow-lg bg-base-200 rounded-lg hover:bg-base-300">
-          <router-link :to="{ name: 'pinia-details', params: { id: todo.id } }">
-            <div class="card-body m-4 hover:text-lg transition-all">
-              <div class="flex justify-between">
-                <div>{{ todo.task }}</div>
-                <div
-                  class="checkbox checkbox-primary"
-                  :checked="todo.isFinished" />
-              </div>
-            </div>
-          </router-link>
-        </div>
-      </div>
-
-      <div v-if="activeTab === 'all'">
-        <div
-          v-for="todo in todoStore.allTask"
-          :key="todo.id"
-          class="cursor-pointer card-compact shadow-lg bg-base-200 rounded-lg hover:bg-base-300">
-          <router-link :to="{ name: 'pinia-details', params: { id: todo.id } }">
-            <div class="card-body m-4 hover:text-lg transition-all">
-              <div class="flex justify-between">
-                <div>{{ todo.task }}</div>
-                <div
-                  class="checkbox checkbox-primary"
-                  :checked="todo.isFinished" />
-              </div>
-            </div>
-          </router-link>
-        </div>
-      </div>
+    <div v-if="todoStore.isLoading" class="text-center pt-24">
+      <span class="loading loading-dots loading-lg"></span>
     </div>
-    <div v-else class="text-center pt-10">
-      <div>
-        <i class="fa-solid fa-plane-departure text-4xl text-primary mb-2"></i>
-        <p>No task at the moment</p>
+
+    <div v-else>
+      <div v-if="todoStore.totalTask >= 1">
+        <div v-if="activeTab === 'uncompleted'">
+          <div v-for="todo in todoStore.uncompletedTask" :key="todo.id">
+            <PiniaCard :todo="todo" />
+          </div>
+        </div>
+
+        <div v-if="activeTab === 'completed'">
+          <div v-for="todo in todoStore.completedTask" :key="todo.id">
+            <PiniaCard :todo="todo" />
+          </div>
+        </div>
+
+        <div v-if="activeTab === 'all'">
+          <div v-for="todo in todoStore.allTask" :key="todo.id">
+            <PiniaCard :todo="todo" />
+          </div>
+        </div>
+      </div>
+      <div v-else class="text-center pt-10">
+        <div>
+          <i class="fa-solid fa-plane-departure text-4xl text-primary mb-2"></i>
+          <p>No task at the moment</p>
+        </div>
       </div>
     </div>
   </div>
@@ -137,6 +107,7 @@
 
 <script>
 import { useTodoStore } from '@/stores/TodoStores';
+import PiniaCard from '@/components/PiniaCard.vue';
 
 export default {
   setup() {
@@ -144,7 +115,9 @@ export default {
 
     return { todoStore };
   },
-  components: {},
+  components: {
+    PiniaCard,
+  },
   methods: {
     clickHandler(todo) {
       console.log(todo.id);

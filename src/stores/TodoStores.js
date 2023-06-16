@@ -11,53 +11,67 @@ export const useTodoStore = defineStore('todoStore', {
     totalTask: (state) => state.todos.length,
   },
   actions: {
-    addTask(task) {
-      this.todos.push(task);
+    async getTask() {
+      this.isLoading = true;
+
+      const res = await fetch(`http://localhost:3000/todos`);
+      const data = await res.json();
+
+      setTimeout(() => {
+        this.todos = data;
+        this.isLoading = false;
+      }, 500);
     },
-    changeStatus(id) {
+    async addTask(task) {
+      this.todos.push(task);
+      try {
+        await fetch(`http://localhost:3000/todos`, {
+          method: 'POST',
+          body: JSON.stringify(task),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async changeStatus(id) {
       const taskId = this.todos.findIndex((todo) => todo.id === id);
 
       const currentStatus = this.todos[taskId].isFinished;
       this.todos[taskId].isFinished = !currentStatus;
+
+      try {
+        await fetch(`http://localhost:3000/todos/${id}`, {
+          method: 'PATCH',
+          body: JSON.stringify({
+            isFinished: !currentStatus,
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+      } catch (error) {
+        console.log(error);
+      }
     },
-    deleteTask(id) {
+    async deleteTask(id) {
       const taskId = this.todos.findIndex((todo) => todo.id === id);
 
       this.todos.splice(taskId, 1);
+
+      try {
+        await fetch(`http://localhost:3000/todos/${id}`, {
+          method: 'DELETE',
+        });
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
   state: () => ({
-    todos: [
-      {
-        task: 'Complete Project Proposal',
-        description: 'Review and finalize the project proposal document',
-        isFinished: false,
-        id: 1,
-      },
-      {
-        task: 'Prepare Presentation Slides',
-        description: 'Create slides for the upcoming client presentation',
-        isFinished: true,
-        id: 2,
-      },
-      {
-        task: 'Research New Technologies',
-        description: 'Explore and gather information on emerging technologies',
-        isFinished: false,
-        id: 3,
-      },
-      {
-        task: 'Update Website Content',
-        description: 'Revise and update the website content for improved SEO',
-        isFinished: true,
-        id: 4,
-      },
-      {
-        task: 'Schedule Team Meeting',
-        description: 'Coordinate a meeting to discuss project progress',
-        isFinished: false,
-        id: 5,
-      },
-    ],
+    todos: [],
+    isLoading: false,
   }),
 });

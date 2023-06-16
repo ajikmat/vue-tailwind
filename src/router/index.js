@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
-import HomeView from '../views/HomeView.vue';
-import HomeWithPinia from '../views/HomeWithPinia.vue';
-import TodoDetailsWithPinia from '../components/TodoDetailsWithPinia.vue';
+import HomeView from '@/views/simple-todo/HomeView.vue';
+import HomeWithPinia from '../views/pinia/HomeWithPinia.vue';
+import TodoDetailsWithPinia from '../views/pinia/TodoDetailsWithPinia.vue';
 
 const routes = [
   {
