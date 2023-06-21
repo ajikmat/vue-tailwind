@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router';
 import HomeView from '@/views/simple-todo/HomeView.vue';
 import HomeWithPinia from '../views/pinia/HomeWithPinia.vue';
 import TodoDetailsWithPinia from '../views/pinia/TodoDetailsWithPinia.vue';
+import PageView from '../views/pageview/PageView.vue';
 
 const routes = [
   {
@@ -18,6 +19,11 @@ const routes = [
     path: '/pinia-details/:id',
     name: 'pinia-details',
     component: TodoDetailsWithPinia,
+  },
+  {
+    path: '/page-view',
+    name: 'page-view',
+    component: PageView,
   },
 ];
 

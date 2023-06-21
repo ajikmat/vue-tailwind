@@ -28,6 +28,9 @@
               <router-link to="/pinia">Pinia State Management</router-link>
             </li>
             <li>
+              <router-link to="/page-view">Page View</router-link>
+            </li>
+            <li>
               <router-link to="/">Axios</router-link>
             </li>
           </ul>

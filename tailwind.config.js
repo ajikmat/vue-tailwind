@@ -7,10 +7,11 @@ module.exports = {
       //   'weather-primary': '#00668A',
       //   'weather-secondary': '#004E71',
       // },
+      fontFamily: {
+        LexendDeca: ['Lexend Deca', 'sans-serif'],
+      },
     },
-    fontFamily: {
-      LexendDeca: ['Lexend Deca', 'sans-serif'],
-    },
+
     container: {
       padding: '2rem',
       center: true,
